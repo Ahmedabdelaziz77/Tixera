@@ -1,6 +1,6 @@
 package com.elzoz.tickets.filters;
 
-import com.elzoz.tickets.domain.User;
+import com.elzoz.tickets.domain.entities.User;
 import com.elzoz.tickets.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
