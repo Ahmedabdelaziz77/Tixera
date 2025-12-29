@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
     }
 
-//    Occurs when validating: @PathVariable, @RequestParam, Method parameters, Programmatic validation
+    // Occurs when validating: @PathVariable, @RequestParam, Method parameters, Programmatic validation
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorDto> handleConstraintViolation(
             ConstraintViolationException ex

@@ -2,10 +2,9 @@ package com.elzoz.tickets.mappers;
 
 import com.elzoz.tickets.domain.CreateEventRequest;
 import com.elzoz.tickets.domain.CreateTicketTypeRequest;
-import com.elzoz.tickets.domain.dtos.CreateEventRequestDto;
-import com.elzoz.tickets.domain.dtos.CreateEventResponseDto;
-import com.elzoz.tickets.domain.dtos.CreateTicketTypeRequestDto;
+import com.elzoz.tickets.domain.dtos.*;
 import com.elzoz.tickets.domain.entities.Event;
+import com.elzoz.tickets.domain.entities.TicketType;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -16,4 +15,14 @@ public interface EventMapper {
     CreateEventRequest fromDto(CreateEventRequestDto dto);
 
     CreateEventResponseDto toDto(Event event);
+
+    CreateTicketTypeResponseDto toDto(TicketType ticketType);
+
+    ListEventTicketTypeResponseDto toListEventTicketTypeResponseDto(TicketType ticketType);
+
+    ListEventResponseDto toListEventResponseDto(Event event);
+
+    GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
+
+    GetEventDetailsTicketTypesResponseDto toGetEventDetailsTicketTypesResponseDto(TicketType ticketType);
 }
