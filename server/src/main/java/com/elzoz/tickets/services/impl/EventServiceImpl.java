@@ -4,6 +4,7 @@ import com.elzoz.tickets.domain.CreateEventRequest;
 import com.elzoz.tickets.domain.UpdateEventRequest;
 import com.elzoz.tickets.domain.UpdateTicketTypeRequest;
 import com.elzoz.tickets.domain.entities.Event;
+import com.elzoz.tickets.domain.entities.EventStatusEnum;
 import com.elzoz.tickets.domain.entities.TicketType;
 import com.elzoz.tickets.domain.entities.User;
 import com.elzoz.tickets.exceptions.EventNotFoundException;
@@ -136,6 +137,17 @@ public class EventServiceImpl implements EventService {
             }
         }
         return eventRepository.save(existingEvent);
+    }
+
+    @Override
+    @Transactional
+    public void deleteEventForOrganizer(UUID organizerId, UUID id) {
+        getEventForOrganizer(organizerId, id).ifPresent(eventRepository::delete);
+    }
+
+    @Override
+    public Page<Event> listPublishedEvents(Pageable pageable) {
+        return eventRepository.findByStatus(EventStatusEnum.PUBLISHED, pageable);
     }
 
 }
