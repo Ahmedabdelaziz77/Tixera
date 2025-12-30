@@ -1,10 +1,8 @@
 package com.elzoz.tickets.controllers;
 
 import com.elzoz.tickets.domain.CreateEventRequest;
-import com.elzoz.tickets.domain.dtos.CreateEventRequestDto;
-import com.elzoz.tickets.domain.dtos.CreateEventResponseDto;
-import com.elzoz.tickets.domain.dtos.GetEventDetailsResponseDto;
-import com.elzoz.tickets.domain.dtos.ListEventResponseDto;
+import com.elzoz.tickets.domain.UpdateEventRequest;
+import com.elzoz.tickets.domain.dtos.*;
 import com.elzoz.tickets.domain.entities.Event;
 import com.elzoz.tickets.mappers.EventMapper;
 import com.elzoz.tickets.services.EventService;
@@ -62,6 +60,19 @@ public class EventController {
                 .map(eventMapper::toGetEventDetailsResponseDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping(path = "/{eventId}")
+    public ResponseEntity<UpdateEventResponseDto> updateEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId,
+            @Valid @RequestBody UpdateEventRequestDto event
+    ){
+        UUID userId = parseUserId(jwt);
+        UpdateEventRequest updateEventRequest = eventMapper.fromDto(event);
+        Event updatedEvent = eventService.updateEventForOrganizer(userId, eventId, updateEventRequest);
+        UpdateEventResponseDto updateEventResponseDto = eventMapper.toUpdateEventResponseDto(updatedEvent);
+        return ResponseEntity.ok(updateEventResponseDto);
     }
 
     private UUID parseUserId(Jwt jwt){

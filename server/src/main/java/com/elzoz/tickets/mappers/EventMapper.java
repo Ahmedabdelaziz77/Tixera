@@ -2,6 +2,8 @@ package com.elzoz.tickets.mappers;
 
 import com.elzoz.tickets.domain.CreateEventRequest;
 import com.elzoz.tickets.domain.CreateTicketTypeRequest;
+import com.elzoz.tickets.domain.UpdateEventRequest;
+import com.elzoz.tickets.domain.UpdateTicketTypeRequest;
 import com.elzoz.tickets.domain.dtos.*;
 import com.elzoz.tickets.domain.entities.Event;
 import com.elzoz.tickets.domain.entities.TicketType;
@@ -25,4 +27,12 @@ public interface EventMapper {
     GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
 
     GetEventDetailsTicketTypesResponseDto toGetEventDetailsTicketTypesResponseDto(TicketType ticketType);
+
+    UpdateEventRequest fromDto(UpdateEventRequestDto dto);
+
+    UpdateTicketTypeRequest fromDto(UpdateTicketTypeRequestDto dto);
+
+    UpdateEventResponseDto toUpdateEventResponseDto(Event event);
+
+    UpdateTicketTypeResponseDto toUpdateTicketTypeResponseDto(TicketType ticketType);
 }
