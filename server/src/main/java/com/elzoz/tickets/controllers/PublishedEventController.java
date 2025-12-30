@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,9 +23,18 @@ public class PublishedEventController {
 
     @GetMapping
     public ResponseEntity<Page<ListPublishedEventResponseDto>> getPublishedEvents(
+            @RequestParam(required = false) String q,
             Pageable pageable
     ){
-        return ResponseEntity.ok(eventService.listPublishedEvents(pageable)
-                .map(eventMapper::toListPublishedEventResponseDto));
+
+        Page<Event> events;
+        if(q != null && !q.trim().isEmpty())
+            events = eventService.searchPublicEvents(q, pageable);
+        else
+            events = eventService.listPublishedEvents(pageable);
+
+        return ResponseEntity.ok(events
+                .map(eventMapper::toListPublishedEventResponseDto)
+        );
     }
 }
