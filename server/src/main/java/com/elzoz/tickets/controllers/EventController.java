@@ -1,11 +1,13 @@
 package com.elzoz.tickets.controllers;
 
+
 import com.elzoz.tickets.domain.CreateEventRequest;
 import com.elzoz.tickets.domain.UpdateEventRequest;
 import com.elzoz.tickets.domain.dtos.*;
 import com.elzoz.tickets.domain.entities.Event;
 import com.elzoz.tickets.mappers.EventMapper;
 import com.elzoz.tickets.services.EventService;
+import com.elzoz.tickets.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.UUID;
 
@@ -32,7 +35,7 @@ public class EventController {
             @Valid @RequestBody CreateEventRequestDto createEventRequestDto
             ){
         CreateEventRequest createEventRequest = eventMapper.fromDto(createEventRequestDto);
-        UUID userId = parseUserId(jwt);
+        UUID userId = JwtUtil.parseUserId(jwt);
         Event createdEvent = eventService.createEvent(userId, createEventRequest);
         CreateEventResponseDto createEventResponseDto = eventMapper.toDto(createdEvent);
         return new ResponseEntity<>(createEventResponseDto, HttpStatus.CREATED);
@@ -43,7 +46,7 @@ public class EventController {
             @AuthenticationPrincipal Jwt jwt,
             Pageable pageable
     ){
-        UUID userId = parseUserId(jwt);
+        UUID userId = JwtUtil.parseUserId(jwt);
         Page<Event> events = eventService.listEventsForOrganizer(userId, pageable);
         return ResponseEntity.ok(
                 events.map(eventMapper::toListEventResponseDto)
@@ -55,7 +58,7 @@ public class EventController {
             @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID eventId
     ){
-        UUID userId = parseUserId(jwt);
+        UUID userId = JwtUtil.parseUserId(jwt);
         return eventService.getEventForOrganizer(userId, eventId)
                 .map(eventMapper::toGetEventDetailsResponseDto)
                 .map(ResponseEntity::ok)
@@ -68,7 +71,7 @@ public class EventController {
             @PathVariable UUID eventId,
             @Valid @RequestBody UpdateEventRequestDto event
     ){
-        UUID userId = parseUserId(jwt);
+        UUID userId = JwtUtil.parseUserId(jwt);
         UpdateEventRequest updateEventRequest = eventMapper.fromDto(event);
         Event updatedEvent = eventService.updateEventForOrganizer(userId, eventId, updateEventRequest);
         UpdateEventResponseDto updateEventResponseDto = eventMapper.toUpdateEventResponseDto(updatedEvent);
@@ -80,14 +83,9 @@ public class EventController {
             @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID eventId
     ){
-        UUID userId = parseUserId(jwt);
+        UUID userId = JwtUtil.parseUserId(jwt);
         eventService.deleteEventForOrganizer(userId, eventId);
         return ResponseEntity.noContent().build();
     }
 
-
-
-    private UUID parseUserId(Jwt jwt){
-        return UUID.fromString(jwt.getSubject());
-    }
 }
