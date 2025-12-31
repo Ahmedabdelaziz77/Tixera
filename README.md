@@ -168,7 +168,7 @@ Each purchased ticket generates a **unique QR code**, stored in the database and
 
 ---
 
-### ✅ Valid Ticket Scan
+### ✅ Valid Ticket Scan (Open the camera and scan or choose to do it manually)
 
 <img width="745" height="892" alt="Image" src="https://github.com/user-attachments/assets/7b126f2b-c6d4-4a62-a50a-bc7d1000fbff" />
 
