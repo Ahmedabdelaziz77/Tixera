@@ -258,5 +258,3 @@ docker compose up -d
 * Orphan removal for ticket types
 * Separate published vs organizer event flows
 * MapStruct for clean mapping
-
-Just tell me 🔥
