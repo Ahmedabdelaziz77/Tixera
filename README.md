@@ -4,7 +4,7 @@ A **full-stack event ticketing platform** that allows organizers to create and m
 
 ---
 
-## 🔄 System Flow Diagram
+## System Flow Diagram
 
 ```mermaid
 flowchart TD
@@ -51,9 +51,9 @@ flowchart TD
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👤 User Roles (Keycloak)
+### User Roles (Keycloak)
 
 * **Organizer**
 
@@ -71,7 +71,7 @@ flowchart TD
 
 ---
 
-### 🎫 Ticketing System
+### Ticketing System
 
 * Multiple ticket types per event
 * Secure ticket purchasing with **pessimistic locking**
@@ -90,7 +90,7 @@ flowchart TD
 
 ---
 
-### 🔍 Event Discovery
+### Event Discovery
 
 * List published events
 * Full-text search (PostgreSQL `tsvector`)
@@ -98,7 +98,7 @@ flowchart TD
 
 ---
 
-### 🖥️ Frontend
+### Frontend
 
 * Modern React UI
 * Role-based dashboards
@@ -107,7 +107,7 @@ flowchart TD
 
 ---
 
-## 🧱 Architecture
+## Architecture
 
 ### Backend
 
@@ -138,7 +138,7 @@ flowchart TD
 
 ---
 
-## 🗂️ Domain Model
+## Domain Model
 
 The platform models:
 
@@ -158,9 +158,9 @@ Relations include:
 
 ---
 
-## 📸 QR Code Flow (Generation & Validation)
+## QR Code Flow (Generation & Validation)
 
-### 🎟️ Ticket QR Code (Generated After Purchase)
+### Ticket QR Code (Generated After Purchase)
 
 <img width="1920" height="940" alt="Image" src="https://github.com/user-attachments/assets/071018e2-c157-45ed-84ad-1251c70ea2e2" />
 
@@ -188,7 +188,7 @@ Each purchased ticket generates a **unique QR code**, stored in the database and
 
 ---
 
-## 📦 Backend API Overview
+## Backend API Overview
 
 ### Events
 
@@ -241,7 +241,7 @@ docker compose up -d
 
 ---
 
-## 🧪 Validation & Error Handling
+## Validation & Error Handling
 
 * DTO-based validation
 * Centralized `@RestControllerAdvice`
@@ -250,7 +250,7 @@ docker compose up -d
 
 ---
 
-## 🧩 Key Design Decisions
+## Key Design Decisions
 
 * DTOs for **every request & response**
 * Stateless REST API
